@@ -43,7 +43,7 @@ void cuda_NetworkInNetwork_accGradParameters(
     /*cuda float*/ at::Tensor d_output_features,
     /*cuda float*/ at::Tensor d_weight, /*cuda float*/ at::Tensor d_bias) {
   auto nActive = input_features.size(0);
-  if (nActive and d_bias.numel())
+  if (nActive && d_bias.numel())
     at::sum_out(d_bias, d_output_features, {0}, false);
   if (nActive)
     at::mm_out(d_weight, input_features.t(), d_output_features);

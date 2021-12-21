@@ -37,7 +37,7 @@ using RuleBook = std::vector<std::vector<Int>>;
 template <Int dimension>
 void addPointToSparseGridMapAndFeatures(SparseGridMap<dimension> &mp,
                                         Point<dimension> p, Int &nActive,
-                                        long nPlanes,
+                                         int64_t  nPlanes,
                                         /*float*/ at::Tensor &features,
                                         float *vec, bool overwrite);
 
@@ -81,48 +81,48 @@ public:
 
   Metadata();
   void clear();
-  Int getNActive(/*long*/ at::Tensor &spatialSize);
-  SparseGrids<dimension> &getSparseGrid(/*long*/ at::Tensor &spatialSize);
-  void setInputSpatialSize(/*long*/ at::Tensor &spatialSize);
+  Int getNActive(/* int64_t */ at::Tensor &spatialSize);
+  SparseGrids<dimension> &getSparseGrid(/* int64_t */ at::Tensor &spatialSize);
+  void setInputSpatialSize(/* int64_t */ at::Tensor &spatialSize);
   void batchAddSample();
   void setInputSpatialLocation(/*float*/ at::Tensor &features,
-                               /*long*/ at::Tensor &location,
+                               /* int64_t */ at::Tensor &location,
                                /*float*/ at::Tensor &vec, bool overwrite);
   void setInputSpatialLocations(/*float*/ at::Tensor &features,
-                                /*long*/ at::Tensor &locations,
+                                /* int64_t */ at::Tensor &locations,
                                 /*float*/ at::Tensor &vecs, bool overwrite);
 
-  at::Tensor getSpatialLocations(/*long*/ at::Tensor &spatialSize);
-  Int getBatchSize(/*long*/ at::Tensor &spatialSize);
-  void createMetadataForDenseToSparse(/*long*/ at::Tensor &spatialSize,
-                                      /*long*/ at::Tensor &nz_, long batchSize);
+  at::Tensor getSpatialLocations(/* int64_t */ at::Tensor &spatialSize);
+  Int getBatchSize(/* int64_t */ at::Tensor &spatialSize);
+  void createMetadataForDenseToSparse(/* int64_t */ at::Tensor &spatialSize,
+                                      /* int64_t */ at::Tensor &nz_,  int64_t  batchSize);
 
   void sparsifyMetadata(Metadata<dimension> &mOut,
-                        /*long*/ at::Tensor &spatialSize,
+                        /* int64_t */ at::Tensor &spatialSize,
                         /*byte*/ at::Tensor &filter,
-                        /*long*/ at::Tensor &cuSum);
+                        /* int64_t */ at::Tensor &cuSum);
 
   void appendMetadata(Metadata<dimension> &mAdd,
-                      /*long*/ at::Tensor &spatialSize);
+                      /* int64_t */ at::Tensor &spatialSize);
 
   /* std::vector<at::Tensor &> sparsifyCompare(Metadata<dimension> &mReference,
    */
   /*                                         Metadata<dimension> &mSparsified,
    */
-  /*                                         /\*long*\/ at::Tensor &
+  /*                                         /\* int64_t *\/ at::Tensor &
    * spatialSize);
    */
 
   std::vector<at::Tensor> sparsifyCompare(Metadata<dimension> &mReference,
-                                            /*long*/ at::Tensor &spatialSize);
+                                            /* int64_t */ at::Tensor &spatialSize);
 
   // tensor is size[0] x .. x size[dimension-1] x size[dimension]
   // size[0] x .. x size[dimension-1] == spatial volume
   // size[dimension] == #feature planes
   void addSampleFromThresholdedTensor(/*float*/ at::Tensor &features_,
                                       /*float*/ at::Tensor &tensor_,
-                                      /*long*/ at::Tensor &offset_,
-                                      /*long*/ at::Tensor &spatialSize_,
+                                      /* int64_t */ at::Tensor &offset_,
+                                      /* int64_t */ at::Tensor &spatialSize_,
                                       float threshold);
 
   // 3x3 submanifold convolutions, 3x3/2x2 pooling or strided convolutions
@@ -131,42 +131,42 @@ public:
   // 3x3 submanifold convolutions, 2x2 pooling or strided convolutions
   void generateRuleBooks2s2();
 
-  void inputLayer(/*long*/ at::Tensor &spatialSize,
-                  /*long*/ at::Tensor &coords, Int batchSize, Int mode);
-  void blLayer(/*long*/ at::Tensor &spatialSize, /*long*/ at::Tensor &coords,
+  void inputLayer(/* int64_t */ at::Tensor &spatialSize,
+                  /* int64_t */ at::Tensor &coords, Int batchSize, Int mode);
+  void blLayer(/* int64_t */ at::Tensor &spatialSize, /* int64_t */ at::Tensor &coords,
                Int mode);
-  RuleBook &getSubmanifoldRuleBook(/*long*/ at::Tensor &spatialSize,
-                                   /*long*/ at::Tensor &size, bool openMP);
+  RuleBook &getSubmanifoldRuleBook(/* int64_t */ at::Tensor &spatialSize,
+                                   /* int64_t */ at::Tensor &size, bool openMP);
   RuleBook &
-  getPermutohedralSubmanifoldRuleBook(/*long*/ at::Tensor &spatialSize,
+  getPermutohedralSubmanifoldRuleBook(/* int64_t */ at::Tensor &spatialSize,
                                       bool openMP);
-  RuleBook &getActivePoolingRuleBook(/*long*/ at::Tensor &spatialSize);
-  RuleBook &getSparseToDenseRuleBook(/*long*/ at::Tensor &spatialSize,
+  RuleBook &getActivePoolingRuleBook(/* int64_t */ at::Tensor &spatialSize);
+  RuleBook &getSparseToDenseRuleBook(/* int64_t */ at::Tensor &spatialSize,
                                      bool openMP);
-  RuleBook &getRuleBook(/*long*/ at::Tensor &inputSpatialSize,
-                        /*long*/ at::Tensor &outputSpatialSize,
-                        /*long*/ at::Tensor &size,
-                        /*long*/ at::Tensor &stride, bool openMP);
-  RuleBook &getFullConvolutionRuleBook(/*long*/ at::Tensor &inputSpatialSize,
-                                       /*long*/ at::Tensor &outputSpatialSize,
-                                       /*long*/ at::Tensor &size,
-                                       /*long*/ at::Tensor &stride,
+  RuleBook &getRuleBook(/* int64_t */ at::Tensor &inputSpatialSize,
+                        /* int64_t */ at::Tensor &outputSpatialSize,
+                        /* int64_t */ at::Tensor &size,
+                        /* int64_t */ at::Tensor &stride, bool openMP);
+  RuleBook &getFullConvolutionRuleBook(/* int64_t */ at::Tensor &inputSpatialSize,
+                                       /* int64_t */ at::Tensor &outputSpatialSize,
+                                       /* int64_t */ at::Tensor &size,
+                                       /* int64_t */ at::Tensor &stride,
                                        Metadata<dimension> &newM);
 
-  RuleBook &getRandomizedStrideRuleBook(/*long*/ at::Tensor &inputSpatialSize,
-                                        /*long*/ at::Tensor &outputSpatialSize,
-                                        /*long*/ at::Tensor &size,
-                                        /*long*/ at::Tensor &stride,
+  RuleBook &getRandomizedStrideRuleBook(/* int64_t */ at::Tensor &inputSpatialSize,
+                                        /* int64_t */ at::Tensor &outputSpatialSize,
+                                        /* int64_t */ at::Tensor &size,
+                                        /* int64_t */ at::Tensor &stride,
                                         bool openMP);
 
   std::vector<at::Tensor >
   compareSparseHelper(Metadata<dimension> &mR,
-                      /* long */ at::Tensor &spatialSize);
+                      /*  int64_t  */ at::Tensor &spatialSize);
   at::Tensor copyFeaturesHelper(Metadata<dimension> &mR,
-                                 /* long */ at::Tensor &spatialSize);
+                                 /*  int64_t  */ at::Tensor &spatialSize);
 };
 
 template <typename T> T *OptionalTensorData(at::Tensor &tensor);
 
-template <Int dimension> Int volume(long *point);
+template <Int dimension> Int volume( int64_t  *point);
 #endif

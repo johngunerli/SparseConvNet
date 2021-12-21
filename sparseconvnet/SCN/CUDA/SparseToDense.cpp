@@ -15,15 +15,15 @@ void cuda_SparseToDense_BackwardPass(T *d_input_features, T *d_output_features,
 
 template <typename T, Int Dimension>
 void cuda_SparseToDense_updateOutput(
-    /*long*/ at::Tensor &inputSize, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
-    /*cuda float*/ at::Tensor &output_features, long nPlanes) {
+    /*cuda float*/ at::Tensor &output_features,  int64_t  nPlanes) {
 
   {
-    std::array<long, Dimension + 2> sz;
+    std::array<int64_t, Dimension + 2> sz;
     sz[0] = m.grids.begin()->second.size(); // batch size
     sz[1] = nPlanes;
-    long *in_sz = inputSize.data_ptr<long>();
+     int64_t  *in_sz = inputSize.data_ptr< int64_t >();
     for (Int i = 0; i < Dimension; ++i)
       sz[i + 2] = in_sz[i];
     output_features.resize_(sz);
@@ -34,13 +34,13 @@ void cuda_SparseToDense_updateOutput(
     Int _nPlanes = input_features.size(1);
     auto iF = input_features.data_ptr<T>();
     auto oF = output_features.data_ptr<T>();
-    long spatialVolume = inputSize.prod().data_ptr<long>()[0];
+     int64_t  spatialVolume = inputSize.prod().data_ptr< int64_t >()[0];
     cuda_SparseToDense_ForwardPass<T>(iF, oF, _nPlanes, spatialVolume, _rules);
   }
 }
 template <typename T, Int Dimension>
 void cuda_SparseToDense_updateGradInput(
-    /*long*/ at::Tensor &inputSize, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &d_input_features,
     /*cuda float*/ at::Tensor &d_output_features) {
@@ -50,7 +50,7 @@ void cuda_SparseToDense_updateGradInput(
 
   if (input_features.ndimension() == 2) {
     const auto &_rules = m.getSparseToDenseRuleBook(inputSize, true);
-    long spatialVolume = inputSize.prod().data_ptr<long>()[0];
+     int64_t  spatialVolume = inputSize.prod().data_ptr< int64_t >()[0];
     Int _nPlanes = d_input_features.size(1);
     auto diF = d_input_features.data_ptr<T>();
     auto doF = d_output_features.data_ptr<T>();

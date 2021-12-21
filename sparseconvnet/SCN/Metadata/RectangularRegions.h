@@ -81,7 +81,7 @@ inline bool operator!=(const RectangularRegionIterator<dimension> &lhs,
 
 // Similar to above but for [ offset[0] ... offset[0]+size[0]-1 ] x ... x [..]
 template <Int dimension>
-void incrementPointInCube(Point<dimension> &point, long *size, long *offset) {
+void incrementPointInCube(Point<dimension> &point, int64_t *size, int64_t *offset) {
   for (Int i = dimension - 1; i >= 0; i--) {
     point[i]++;
     if (point[i] < offset[i] + size[i])
@@ -94,8 +94,8 @@ void incrementPointInCube(Point<dimension> &point, long *size, long *offset) {
 // subset of the input field corresponding to a point in the output.
 template <Int dimension>
 RectangularRegion<dimension>
-InputRegionCalculator(const Point<dimension> &output, long *size,
-                      long *stride) {
+InputRegionCalculator(const Point<dimension> &output, int64_t *size,
+                      int64_t *stride) {
   Point<dimension> lb, ub;
   for (Int i = 0; i < dimension; i++) {
     lb[i] = output[i] * stride[i];
@@ -108,11 +108,11 @@ InputRegionCalculator(const Point<dimension> &output, long *size,
 // subset of the output field corresponding to a point in the input.
 template <Int dimension>
 RectangularRegion<dimension>
-OutputRegionCalculator(const Point<dimension> &input, long *size, long *stride,
-                       long *outputSpatialSize) {
+OutputRegionCalculator(const Point<dimension> &input, int64_t *size, int64_t *stride,
+                       int64_t *outputSpatialSize) {
   Point<dimension> lb, ub;
   for (Int i = 0; i < dimension; i++) {
-    lb[i] = std::max(0L, (input[i] - size[i] + stride[i]) / stride[i]);
+    lb[i] = std::max((int64_t)0, (input[i] - size[i] + stride[i]) / stride[i]);
     ub[i] = std::min(outputSpatialSize[i] - 1, input[i] / stride[i]);
   }
   return RectangularRegion<dimension>(lb, ub);

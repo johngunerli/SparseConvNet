@@ -33,11 +33,11 @@ void UnPooling_BackwardPass(T *d_input_features, T *d_output_features,
 
 template <typename T, Int Dimension>
 void cpu_UnPooling_updateOutput(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &poolSize,
-    /*long*/ at::Tensor &poolStride, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &poolSize,
+    /* int64_t */ at::Tensor &poolStride, Metadata<Dimension> &m,
     /*float*/ at::Tensor &input_features,
-    /*float*/ at::Tensor &output_features, long nFeaturesToDrop) {
+    /*float*/ at::Tensor &output_features,  int64_t  nFeaturesToDrop) {
 
   Int nPlanes = input_features.size(1) - nFeaturesToDrop;
   const auto &_rules =

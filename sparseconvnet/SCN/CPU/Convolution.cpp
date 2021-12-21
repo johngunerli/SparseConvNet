@@ -44,9 +44,9 @@ void rule_index_add_(at::Tensor &target, at::Tensor &src, Int nRules,
 
 template <typename T, Int Dimension>
 double cpu_Convolution_updateOutput(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &filterSize,
-    /*long*/ at::Tensor &filterStride, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &filterStride, Metadata<Dimension> &m,
     /*float*/ at::Tensor &input_features,
     /*float*/ at::Tensor &output_features, /*float*/ at::Tensor &weight,
     /*float*/ at::Tensor &bias) {
@@ -54,7 +54,7 @@ double cpu_Convolution_updateOutput(
       m.getRuleBook(inputSize, outputSize, filterSize, filterStride, true);
   Int nActive = m.getNActive(outputSize);
   output_features.resize_({nActive, weight.size(1) * weight.size(3)});
-  if (bias.numel() and nActive)
+  if (bias.numel() && nActive)
     output_features.copy_(bias);
   else
     output_features.zero_();
@@ -80,9 +80,9 @@ double cpu_Convolution_updateOutput(
 
 template <typename T, Int Dimension>
 void cpu_Convolution_backward(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &filterSize,
-    /*long*/ at::Tensor &filterStride, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &filterStride, Metadata<Dimension> &m,
     /*float*/ at::Tensor &input_features,
     /*float*/ at::Tensor &d_input_features,
     /*float*/ at::Tensor &d_output_features, /*float*/ at::Tensor &weight,
@@ -95,7 +95,7 @@ void cpu_Convolution_backward(
   d_input_features.zero_();
 
   auto groups = weight.size(1);
-  if (nActive and d_bias.numel())
+  if (nActive && d_bias.numel())
     at::sum_out(d_bias, d_output_features, {0}, false);
   for (Int i = 0; i < (Int)_rules.size(); ++i) {
     const auto &r = _rules[i];
@@ -116,7 +116,7 @@ void cpu_Convolution_backward(
 
 template <typename T, Int Dimension>
 double cpu_SubmanifoldConvolution_updateOutput(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &filterSize,
     Metadata<Dimension> &m,
     /*float*/ at::Tensor &input_features,
     /*float*/ at::Tensor &output_features,
@@ -125,7 +125,7 @@ double cpu_SubmanifoldConvolution_updateOutput(
   const auto &_rules = m.getSubmanifoldRuleBook(inputSize, filterSize, true);
   Int nActive = m.getNActive(inputSize);
   output_features.resize_({nActive, weight.size(1) * weight.size(3)});
-  if (bias.numel() and nActive)
+  if (bias.numel() && nActive)
     output_features.copy_(bias);
   else
     output_features.zero_();
@@ -151,7 +151,7 @@ double cpu_SubmanifoldConvolution_updateOutput(
 
 template <typename T, Int Dimension>
 void cpu_SubmanifoldConvolution_backward(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &filterSize,
     Metadata<Dimension> &m,
     /*float*/ at::Tensor &input_features,
     /*float*/ at::Tensor &d_input_features,
@@ -165,7 +165,7 @@ void cpu_SubmanifoldConvolution_backward(
   d_input_features.zero_();
 
   auto groups = weight.size(1);
-  if (nActive and d_bias.numel())
+  if (nActive && d_bias.numel())
     at::sum_out(d_bias, d_output_features, {0}, false);
   for (Int i = 0; i < (Int)_rules.size(); ++i) {
     const auto &r = _rules[i];
@@ -186,7 +186,7 @@ void cpu_SubmanifoldConvolution_backward(
 
 template <typename T, Int Dimension>
 double cpu_PermutohedralSubmanifoldConvolution_updateOutput(
-    /*long*/ at::Tensor &inputSize, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, Metadata<Dimension> &m,
     /*float*/ at::Tensor &input_features,
     /*float*/ at::Tensor &output_features,
     /*float*/ at::Tensor &weight,
@@ -194,7 +194,7 @@ double cpu_PermutohedralSubmanifoldConvolution_updateOutput(
   const auto &_rules = m.getPermutohedralSubmanifoldRuleBook(inputSize, true);
   Int nActive = m.getNActive(inputSize);
   output_features.resize_({nActive, weight.size(1) * weight.size(3)});
-  if (bias.numel() and nActive)
+  if (bias.numel() && nActive)
     output_features.copy_(bias);
   else
     output_features.zero_();
@@ -233,7 +233,7 @@ void cpu_PermutohedralSubmanifoldConvolution_backward(
   d_input_features.zero_();
 
   auto groups = weight.size(1);
-  if (nActive and d_bias.numel())
+  if (nActive && d_bias.numel())
     at::sum_out(d_bias, d_output_features, {0}, false);
   for (Int i = 0; i < (Int)_rules.size(); ++i) {
     const auto &r = _rules[i];
@@ -266,7 +266,7 @@ double cpu_FullConvolution_updateOutput(
                                                filterSize, filterStride, mOut);
   Int nActive = mOut.getNActive(outputSize);
   output_features.resize_({nActive, weight.size(1) * weight.size(3)});
-  if (bias.numel() and nActive)
+  if (bias.numel() && nActive)
     output_features.copy_(bias);
   else
     output_features.zero_();
@@ -309,7 +309,7 @@ void cpu_FullConvolution_backward(
   d_input_features.zero_();
 
   auto groups = weight.size(1);
-  if (nActive and d_bias.numel())
+  if (nActive && d_bias.numel())
     at::sum_out(d_bias, d_output_features, {0}, false);
   for (Int i = 0; i < (Int)_rules.size(); ++i) {
     const auto &r = _rules[i];
@@ -340,7 +340,7 @@ double cpu_RandomizedStrideConvolution_updateOutput(
                                               filterStride, true);
   Int nActive = m.getNActive(outputSize);
   output_features.resize_({nActive, weight.size(1) * weight.size(3)});
-  if (bias.numel() and nActive)
+  if (bias.numel() && nActive)
     output_features.copy_(bias);
   else
     output_features.zero_();
@@ -381,7 +381,7 @@ void cpu_RandomizedStrideConvolution_backward(
   d_input_features.zero_();
 
   auto groups = weight.size(1);
-  if (nActive and d_bias.numel())
+  if (nActive && d_bias.numel())
     at::sum_out(d_bias, d_output_features, {0}, false);
   for (Int i = 0; i < (Int)_rules.size(); ++i) {
     const auto &r = _rules[i];

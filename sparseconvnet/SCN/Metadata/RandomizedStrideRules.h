@@ -42,8 +42,8 @@ public:
 
 typedef std::vector<RSRTicks> RSRTicksV;
 
-RSRTicksV RSRRegions(long *input_spatialSize, long *output_spatialSize,
-                     Int dimension, long *size, long *stride,
+RSRTicksV RSRRegions( int64_t  *input_spatialSize,  int64_t  *output_spatialSize,
+                     Int dimension,  int64_t  *size,  int64_t  *stride,
                      std::default_random_engine re) {
   RSRTicksV t;
   for (Int i = 0; i < dimension; i++)
@@ -76,8 +76,8 @@ RSROutputRegionCalculator(const Point<dimension> &input, RSRTicksV &t) {
 template <Int dimension>
 void RSR_InputSgToRulesAndOutputSg(SparseGrid<dimension> &inputGrid,
                                    SparseGrid<dimension> &outputGrid,
-                                   RuleBook &rules, RSRTicksV &t, long *size,
-                                   long *stride) {
+                                   RuleBook &rules, RSRTicksV &t,  int64_t  *size,
+                                    int64_t  *stride) {
   rules.resize(volume<dimension>(size));
 
   for (auto const &inIter : inputGrid.mp) {
@@ -100,9 +100,9 @@ void RSR_InputSgToRulesAndOutputSg(SparseGrid<dimension> &inputGrid,
 template <Int dimension>
 Int RSR_InputSgsToRulesAndOutputSgs(SparseGrids<dimension> &input_SGs,
                                     SparseGrids<dimension> &output_SGs,
-                                    RuleBook &rules, long *size, long *stride,
-                                    long *input_spatialSize,
-                                    long *output_spatialSize,
+                                    RuleBook &rules,  int64_t  *size,  int64_t  *stride,
+                                     int64_t  *input_spatialSize,
+                                     int64_t  *output_spatialSize,
                                     std::default_random_engine re) {
   auto t = RSRRegions(input_spatialSize, output_spatialSize, dimension, size,
                       stride, re);
@@ -126,9 +126,9 @@ Int RSR_InputSgsToRulesAndOutputSgs(SparseGrids<dimension> &input_SGs,
 template <Int dimension>
 Int RSR_InputSgsToRulesAndOutputSgs_OMP(SparseGrids<dimension> &input_SGs,
                                         SparseGrids<dimension> &output_SGs,
-                                        RuleBook &rules, long *size,
-                                        long *stride, long *input_spatialSize,
-                                        long *output_spatialSize,
+                                        RuleBook &rules,  int64_t  *size,
+                                         int64_t  *stride,  int64_t  *input_spatialSize,
+                                         int64_t  *output_spatialSize,
                                         std::default_random_engine re) {
   auto t = RSRRegions(input_spatialSize, output_spatialSize, dimension, size,
                       stride, re);

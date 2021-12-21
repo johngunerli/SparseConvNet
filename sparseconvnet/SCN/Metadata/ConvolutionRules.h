@@ -11,9 +11,9 @@
 template <Int dimension>
 void Convolution_InputSgToRulesAndOutputSg(SparseGrid<dimension> &inputGrid,
                                            SparseGrid<dimension> &outputGrid,
-                                           RuleBook &rules, long *size,
-                                           long *stride, long *inputSpatialSize,
-                                           long *outputSpatialSize) {
+                                           RuleBook &rules,  int64_t  *size,
+                                            int64_t  *stride,  int64_t  *inputSpatialSize,
+                                            int64_t  *outputSpatialSize) {
   rules.resize(volume<dimension>(size));
   for (auto const &inIter : inputGrid.mp) {
     auto outRegion = OutputRegionCalculator<dimension>(
@@ -36,10 +36,10 @@ void Convolution_InputSgToRulesAndOutputSg(SparseGrid<dimension> &inputGrid,
 template <Int dimension>
 Int Convolution_InputSgsToRulesAndOutputSgs(SparseGrids<dimension> &input_SGs,
                                             SparseGrids<dimension> &output_SGs,
-                                            RuleBook &rules, long *filterSize,
-                                            long *filterStride,
-                                            long *input_spatialSize,
-                                            long *output_spatialSize) {
+                                            RuleBook &rules,  int64_t  *filterSize,
+                                             int64_t  *filterStride,
+                                             int64_t  *input_spatialSize,
+                                             int64_t  *output_spatialSize) {
   rules.clear();
   output_SGs.clear();
   Int batchSize = input_SGs.size();
@@ -61,8 +61,8 @@ Int Convolution_InputSgsToRulesAndOutputSgs(SparseGrids<dimension> &input_SGs,
 template <Int dimension>
 Int Convolution_InputSgsToRulesAndOutputSgs_OMP(
     SparseGrids<dimension> &input_SGs, SparseGrids<dimension> &output_SGs,
-    RuleBook &rules, long *filterSize, long *filterStride,
-    long *input_spatialSize, long *output_spatialSize) {
+    RuleBook &rules,  int64_t  *filterSize,  int64_t  *filterStride,
+     int64_t  *input_spatialSize,  int64_t  *output_spatialSize) {
   rules.clear();
   rules.resize(volume<dimension>(filterSize));
   output_SGs.clear();
@@ -108,7 +108,7 @@ Int Convolution_InputSgsToRulesAndOutputSgs_OMP(
 // triples
 template <Int dimension>
 void SparseToDense_InputSgsToRulesAndOutputSgs(
-    SparseGrids<dimension> &input_SGs, RuleBook &rules, long *spatialSize) {
+    SparseGrids<dimension> &input_SGs, RuleBook &rules,  int64_t  *spatialSize) {
   Int batchSize = input_SGs.size();
   rules.clear();
   rules.resize(batchSize);
@@ -129,7 +129,7 @@ void SparseToDense_InputSgsToRulesAndOutputSgs(
 
 template <Int dimension>
 void SparseToDense_InputSgsToRulesAndOutputSgs_OMP(
-    SparseGrids<dimension> &input_SGs, RuleBook &rules, long *spatialSize) {
+    SparseGrids<dimension> &input_SGs, RuleBook &rules,  int64_t  *spatialSize) {
   Int batchSize = input_SGs.size();
   rules.clear();
   rules.resize(batchSize);

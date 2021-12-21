@@ -15,7 +15,7 @@ void ActivePooling_ForwardPass(T *input_features, T *output_features,
     T *out = &output_features[outSite * nPlanes];
     const Int *r = &rules[0][outSite * (maxActive + 1)];
     Int nActive = *r++;
-    T multiplier = (average and nActive > 0) ? (T)1 / nActive : (T)1;
+    T multiplier = (average && nActive > 0) ? (T)1 / nActive : (T)1;
     while (nActive-- > 0) {
       T *inp = &input_features[(*r++) * nPlanes];
       for (Int plane = 0; plane < nPlanes; plane++)
@@ -33,7 +33,7 @@ void ActivePooling_BackwardPass(T *d_input_features, T *d_output_features,
     T *out = &d_output_features[outSite * nPlanes];
     const Int *r = &rules[0][outSite * (maxActive + 1)];
     Int nActive = *r++;
-    T multiplier = (average and nActive > 0) ? (T)1 / nActive : (T)1;
+    T multiplier = (average && nActive > 0) ? (T)1 / nActive : (T)1;
     while (nActive-- > 0) {
       T *inp = &d_input_features[(*r++) * nPlanes];
       for (Int plane = 0; plane < nPlanes; plane++)
@@ -44,7 +44,7 @@ void ActivePooling_BackwardPass(T *d_input_features, T *d_output_features,
 
 template <typename T, Int Dimension>
 void cpu_ActivePooling_updateOutput(
-    /*long*/ at::Tensor &inputSize, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, Metadata<Dimension> &m,
     /*float*/ at::Tensor &input_features,
     /*float*/ at::Tensor &output_features, bool average) {
 
@@ -62,7 +62,7 @@ void cpu_ActivePooling_updateOutput(
 
 template <typename T, Int Dimension>
 void cpu_ActivePooling_updateGradInput(
-    /*long*/ at::Tensor &inputSize, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, Metadata<Dimension> &m,
     /*float*/ at::Tensor &input_features,
     /*float*/ at::Tensor &d_input_features,
     /*float*/ at::Tensor &d_output_features, bool average) {

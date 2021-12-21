@@ -46,7 +46,7 @@ __global__ void BatchNormalization_f_train(
       runningVar[plane] = momentum * runningVar[plane] +
                           (1 - momentum) * _saveInvStd / (nActive - 1);
     }
-    _saveInvStd = pow(_saveInvStd / nActive + eps, -0.5);
+    _saveInvStd = pow(double(_saveInvStd / nActive + eps), -0.5);
     if (threadIdx.y == 0)
       saveInvStd[plane] = _saveInvStd;
     __syncthreads();

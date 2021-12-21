@@ -16,7 +16,7 @@
 
 // mode 0==guaranteed unique 1==overwrite, 2=keep, 3=sum, 4=mean
 template <Int dimension>
-void inputLayerRules(SparseGrids<dimension> &SGs, RuleBook &rules, long *coords,
+void inputLayerRules(SparseGrids<dimension> &SGs, RuleBook &rules,  int64_t  *coords,
 		     Int nInputRows, Int nInputColumns, Int batchSize, Int mode,
 		     Int &nActive) {
   assert(nActive == 0);
@@ -105,7 +105,7 @@ void inputLayerRules(SparseGrids<dimension> &SGs, RuleBook &rules, long *coords,
       rule.push_back(outputRows[i].back());
     }
   }
-  if (mode == 3 or mode == 4) {
+  if (mode == 3 || mode == 4) {
     Int maxActive = 0;
     for (auto &row : outputRows)
       maxActive = std::max(maxActive, (Int)row.size());
@@ -128,11 +128,11 @@ void inputLayerRules(SparseGrids<dimension> &SGs, RuleBook &rules, long *coords,
 // rules[0][4] == nOutputRows
 // rules[1]   nOutputRows x (1+maxActive)
 
-// bl is a batchSize x length x dimension long array of coordinates
+// bl is a batchSize x length x dimension  int64_t  array of coordinates
 // mode 0==guaranteed unique and all present; 1==overwrite, 2=keep, 3=sum,
 // 4=mean
 template <Int dimension>
-void blRules(SparseGrids<dimension> &SGs, RuleBook &rules, long *coords,
+void blRules(SparseGrids<dimension> &SGs, RuleBook &rules,  int64_t  *coords,
 	     Int batchSize, Int length, Int mode, Int &nActive) {
   assert(nActive == 0);
   assert(rules.size() == 0);
@@ -230,7 +230,7 @@ void blRules(SparseGrids<dimension> &SGs, RuleBook &rules, long *coords,
     return;
   }
 
-  if (mode == 3 or mode == 4) {
+  if (mode == 3 || mode == 4) {
     // Compile list of how input rows correspond to output rows
     std::vector<std::vector<std::vector<Int>>> outputRows(batchSize);
     std::vector<Int> nActives(batchSize);

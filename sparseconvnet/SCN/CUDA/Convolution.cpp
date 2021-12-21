@@ -22,9 +22,9 @@ void dConvolution_backward_dW2(T *inFeatures, T *dInFeatures, T *dOutFeatures,
 
 template <typename T, Int Dimension>
 double cuda_Convolution_updateOutput(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &filterSize,
-    /*long*/ at::Tensor &filterStride, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &filterStride, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &output_features, /*cuda float*/ at::Tensor &weight,
     /*cuda float*/ at::Tensor &bias) {
@@ -56,9 +56,9 @@ double cuda_Convolution_updateOutput(
 
 template <typename T, Int Dimension>
 void cuda_Convolution_backward(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &filterSize,
-    /*long*/ at::Tensor &filterStride, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &filterStride, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &d_input_features,
     /*cuda float*/ at::Tensor &d_output_features,
@@ -94,7 +94,7 @@ void cuda_Convolution_backward(
 
 template <typename T, Int Dimension>
 double cuda_SubmanifoldConvolution_updateOutput(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &filterSize,
     Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &output_features, /*cuda float*/ at::Tensor &weight,
@@ -126,7 +126,7 @@ double cuda_SubmanifoldConvolution_updateOutput(
 
 template <typename T, Int Dimension>
 void cuda_SubmanifoldConvolution_backward(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &filterSize,
     Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &d_input_features,
@@ -161,7 +161,7 @@ void cuda_SubmanifoldConvolution_backward(
 
 template <typename T, Int Dimension>
 double cuda_PermutohedralSubmanifoldConvolution_updateOutput(
-    /*long*/ at::Tensor &inputSize, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &output_features, /*cuda float*/ at::Tensor &weight,
     /*cuda float*/ at::Tensor &bias) {
@@ -192,7 +192,7 @@ double cuda_PermutohedralSubmanifoldConvolution_updateOutput(
 
 template <typename T, Int Dimension>
 void cuda_PermutohedralSubmanifoldConvolution_backward(
-    /*long*/ at::Tensor &inputSize, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &d_input_features,
     /*cuda float*/ at::Tensor &d_output_features,
@@ -226,9 +226,9 @@ void cuda_PermutohedralSubmanifoldConvolution_backward(
 
 template <typename T, Int Dimension>
 double cuda_FullConvolution_updateOutput(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &filterSize,
-    /*long*/ at::Tensor &filterStride, Metadata<Dimension> &mIn,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &filterStride, Metadata<Dimension> &mIn,
     Metadata<Dimension> &mOut,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &output_features, /*cuda float*/ at::Tensor &weight,
@@ -261,9 +261,9 @@ double cuda_FullConvolution_updateOutput(
 
 template <typename T, Int Dimension>
 void cuda_FullConvolution_backward(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &filterSize,
-    /*long*/ at::Tensor &filterStride, Metadata<Dimension> &mIn,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &filterStride, Metadata<Dimension> &mIn,
     Metadata<Dimension> &mOut,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &d_input_features,
@@ -299,9 +299,9 @@ void cuda_FullConvolution_backward(
 }
 template <typename T, Int Dimension>
 double cuda_RandomizedStrideConvolution_updateOutput(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &filterSize,
-    /*long*/ at::Tensor &filterStride, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &filterStride, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &output_features,
     /*cuda float*/ at::Tensor &weight, /*cuda float*/ at::Tensor &bias) {
@@ -333,9 +333,9 @@ double cuda_RandomizedStrideConvolution_updateOutput(
 
 template <typename T, Int Dimension>
 void cuda_RandomizedStrideConvolution_backward(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &filterSize,
-    /*long*/ at::Tensor &filterStride, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &filterStride, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &d_input_features,
     /*cuda float*/ at::Tensor &d_output_features,

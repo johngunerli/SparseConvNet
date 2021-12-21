@@ -19,9 +19,9 @@ void dDeconvolution_backward_dW2(T *inFeatures, T *dInFeatures, T *dOutFeatures,
 
 template <typename T, Int Dimension>
 double cuda_Deconvolution_updateOutput(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &filterSize,
-    /*long*/ at::Tensor &filterStride, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &filterStride, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &output_features, /*cuda float*/ at::Tensor &weight,
     /*cuda float*/ at::Tensor &bias) {
@@ -53,9 +53,9 @@ double cuda_Deconvolution_updateOutput(
 
 template <typename T, Int Dimension>
 void cuda_Deconvolution_backward(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &filterSize,
-    /*long*/ at::Tensor &filterStride, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &filterSize,
+    /* int64_t */ at::Tensor &filterStride, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &d_input_features,
     /*cuda float*/ at::Tensor &d_output_features,

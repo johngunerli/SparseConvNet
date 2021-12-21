@@ -16,7 +16,7 @@ void ActivePooling_BackwardPass(T *d_input_features, T *d_output_features,
 
 template <typename T, Int Dimension>
 void cuda_ActivePooling_updateOutput(
-    /*long*/ at::Tensor &inputSize, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &output_features, bool average) {
 
@@ -34,7 +34,7 @@ void cuda_ActivePooling_updateOutput(
 }
 template <typename T, Int Dimension>
 void cuda_ActivePooling_updateGradInput(
-    /*long*/ at::Tensor &inputSize, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &d_input_features,
     /*cuda float*/ at::Tensor &d_output_features, bool average) {

@@ -15,39 +15,39 @@ using Int = int64_t;
 template <Int dimension> using Point = std::array<Int, dimension>;
 
 template <Int dimension>
-Point<dimension> LongTensorToPoint(/*long*/ at::Tensor &t) {
+Point<dimension> LongTensorToPoint(/* int64_t */ at::Tensor &t) {
   Point<dimension> p;
-  long *td = t.data_ptr<long>();
+   int64_t  *td = t.data_ptr< int64_t >();
   for (Int i = 0; i < dimension; i++)
     p[i] = td[i];
   return p;
 }
 template <Int dimension>
-Point<2 * dimension> TwoLongTensorsToPoint(/*long*/ at::Tensor &t0,
-                                           /*long*/ at::Tensor &t1) {
+Point<2 * dimension> TwoLongTensorsToPoint(/* int64_t */ at::Tensor &t0,
+                                           /* int64_t */ at::Tensor &t1) {
   Point<2 * dimension> p;
-  long *td;
-  td = t0.data_ptr<long>();
+   int64_t  *td;
+  td = t0.data_ptr< int64_t >();
   for (Int i = 0; i < dimension; i++)
     p[i] = td[i];
-  td = t1.data_ptr<long>();
+  td = t1.data_ptr< int64_t >();
   for (Int i = 0; i < dimension; i++)
     p[i + dimension] = td[i];
   return p;
 }
 template <Int dimension>
-Point<3 * dimension> ThreeLongTensorsToPoint(/*long*/ at::Tensor &t0,
-                                             /*long*/ at::Tensor &t1,
-                                             /*long*/ at::Tensor &t2) {
+Point<3 * dimension> ThreeLongTensorsToPoint(/* int64_t */ at::Tensor &t0,
+                                             /* int64_t */ at::Tensor &t1,
+                                             /* int64_t */ at::Tensor &t2) {
   Point<3 * dimension> p;
-  long *td;
-  td = t0.data_ptr<long>();
+   int64_t  *td;
+  td = t0.data_ptr< int64_t >();
   for (Int i = 0; i < dimension; i++)
     p[i] = td[i];
-  td = t1.data_ptr<long>();
+  td = t1.data_ptr< int64_t >();
   for (Int i = 0; i < dimension; i++)
     p[i + dimension] = td[i];
-  td = t2.data_ptr<long>();
+  td = t2.data_ptr< int64_t >();
   for (Int i = 0; i < dimension; i++)
     p[i + 2 * dimension] = td[i];
   return p;

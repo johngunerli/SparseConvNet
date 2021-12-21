@@ -17,7 +17,7 @@ void InputLayer_ForwardPass(T *input_features, T *output_features, Int nRows,
   for (row = 0; row < nRows; row++) {
     auto r = rules + row * (1 + maxActive);
     auto nActive = r[0];
-    T multiplier = (average and nActive > 0) ? (T)1 / nActive : (T)1;
+    T multiplier = (average && nActive > 0) ? (T)1 / nActive : (T)1;
     auto out_f = output_features + row * nPlanes;
     for (Int i = 1; i <= nActive; ++i) {
       auto in_f = input_features + r[i] * nPlanes;
@@ -36,7 +36,7 @@ void InputLayer_BackwardPass(T *d_input_features, T *d_output_features,
   for (row = 0; row < nRows; row++) {
     auto r = rules + row * (1 + maxActive);
     auto nActive = r[0];
-    T multiplier = (average and nActive > 0) ? (T)1 / nActive : (T)1;
+    T multiplier = (average && nActive > 0) ? (T)1 / nActive : (T)1;
     auto d_out_f = d_output_features + row * nPlanes;
     for (Int i = 1; i <= nActive; ++i) {
       auto d_in_f = d_input_features + r[i] * nPlanes;
@@ -48,11 +48,11 @@ void InputLayer_BackwardPass(T *d_input_features, T *d_output_features,
 
 template <typename T, Int Dimension>
 void cpu_InputLayer_updateOutput(Metadata<Dimension> &m,
-                                 /*long*/ at::Tensor &spatialSize,
-                                 /*long*/ at::Tensor &input_coords,
+                                 /* int64_t */ at::Tensor &spatialSize,
+                                 /* int64_t */ at::Tensor &input_coords,
                                  /*float*/ at::Tensor &input_features,
                                  /*float*/ at::Tensor &output_features,
-                                 long batchSize, long mode) {
+                                  int64_t  batchSize,  int64_t  mode) {
 
   m.inputLayer(spatialSize, input_coords, batchSize, mode);
   auto nPlanes = input_features.size(1);
@@ -137,11 +137,11 @@ void cpu_OutputLayer_updateGradInput(Metadata<Dimension> &m,
 
 template <typename T, Int Dimension>
 void cpu_BLInputLayer_updateOutput(Metadata<Dimension> &m,
-                                   /*long*/ at::Tensor &spatialSize,
-                                   /*long*/ at::Tensor &input_coords,
+                                   /* int64_t */ at::Tensor &spatialSize,
+                                   /* int64_t */ at::Tensor &input_coords,
                                    /*float*/ at::Tensor &input_features,
                                    /*float*/ at::Tensor &output_features,
-                                   long mode) {
+                                    int64_t  mode) {
 
   m.blLayer(spatialSize, input_coords, mode);
   auto nPlanes = input_features.size(2);

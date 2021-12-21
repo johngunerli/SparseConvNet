@@ -11,8 +11,8 @@
 template <Int dimension>
 void FullConvolution_InputSgToRulesAndOutputSg(
     SparseGrid<dimension> &inputGrid, SparseGrid<dimension> &outputGrid,
-    RuleBook &rules, long *size, long *stride, long *inputSpatialSize,
-    long *outputSpatialSize) {
+    RuleBook &rules,  int64_t  *size,  int64_t  *stride,  int64_t  *inputSpatialSize,
+     int64_t  *outputSpatialSize) {
   rules.resize(volume<dimension>(size));
 
   // Swap Input.. and OutputRegionCalculator v.s. a normal Convolution
@@ -36,8 +36,8 @@ void FullConvolution_InputSgToRulesAndOutputSg(
 template <Int dimension>
 Int FullConvolution_InputSgsToRulesAndOutputSgs(
     SparseGrids<dimension> &input_SGs, SparseGrids<dimension> &output_SGs,
-    RuleBook &rules, long *filterSize, long *filterStride,
-    long *input_spatialSize, long *output_spatialSize) {
+    RuleBook &rules,  int64_t  *filterSize,  int64_t  *filterStride,
+     int64_t  *input_spatialSize,  int64_t  *output_spatialSize) {
   rules.clear();
   output_SGs.clear();
   Int batchSize = input_SGs.size();
@@ -59,8 +59,8 @@ Int FullConvolution_InputSgsToRulesAndOutputSgs(
 template <Int dimension>
 Int FullConvolution_InputSgsToRulesAndOutputSgs_OMP(
     SparseGrids<dimension> &input_SGs, SparseGrids<dimension> &output_SGs,
-    RuleBook &rules, long *filterSize, long *filterStride,
-    long *input_spatialSize, long *output_spatialSize) {
+    RuleBook &rules,  int64_t  *filterSize,  int64_t  *filterStride,
+     int64_t  *input_spatialSize,  int64_t  *output_spatialSize) {
   rules.clear();
   rules.resize(volume<dimension>(filterSize));
   output_SGs.clear();

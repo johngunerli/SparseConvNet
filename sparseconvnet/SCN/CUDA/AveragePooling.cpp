@@ -18,11 +18,11 @@ void cuda_AveragePooling_BackwardPass(T *d_input_features, T *d_output_features,
 
 template <typename T, Int Dimension>
 void cuda_AveragePooling_updateOutput(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &poolSize,
-    /*long*/ at::Tensor &poolStride, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &poolSize,
+    /* int64_t */ at::Tensor &poolStride, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
-    /*cuda float*/ at::Tensor &output_features, long nFeaturesToDrop) {
+    /*cuda float*/ at::Tensor &output_features,  int64_t  nFeaturesToDrop) {
 
   Int nPlanes = input_features.size(1) - nFeaturesToDrop;
   const auto &_rules =
@@ -40,12 +40,12 @@ void cuda_AveragePooling_updateOutput(
 
 template <typename T, Int Dimension>
 void cuda_AveragePooling_updateGradInput(
-    /*long*/ at::Tensor &inputSize, /*long*/ at::Tensor &outputSize,
-    /*long*/ at::Tensor &poolSize,
-    /*long*/ at::Tensor &poolStride, Metadata<Dimension> &m,
+    /* int64_t */ at::Tensor &inputSize, /* int64_t */ at::Tensor &outputSize,
+    /* int64_t */ at::Tensor &poolSize,
+    /* int64_t */ at::Tensor &poolStride, Metadata<Dimension> &m,
     /*cuda float*/ at::Tensor &input_features,
     /*cuda float*/ at::Tensor &d_input_features,
-    /*cuda float*/ at::Tensor &d_output_features, long nFeaturesToDrop) {
+    /*cuda float*/ at::Tensor &d_output_features,  int64_t  nFeaturesToDrop) {
 
   Int nPlanes = input_features.size(1) - nFeaturesToDrop;
   const auto &_rules =

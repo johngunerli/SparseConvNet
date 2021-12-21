@@ -34,15 +34,15 @@ void SparseToDense_BackwardPass(T *d_input_features, T *d_output_features,
 
 template <typename T, Int Dimension>
 void cpu_SparseToDense_updateOutput(
-    /*long*/ at::Tensor &inputSize, Metadata<Dimension> &m,
+    /*int64_t*/ at::Tensor &inputSize, Metadata<Dimension> &m,
     /*float*/ at::Tensor &input_features,
-    /*float*/ at::Tensor &output_features, long nPlanes) {
+    /*float*/ at::Tensor &output_features, int64_t nPlanes) {
 
   {
-    std::array<long, Dimension + 2> sz;
+    std::array<int64_t, Dimension + 2> sz;
     sz[0] = m.grids.begin()->second.size(); // batch size
     sz[1] = nPlanes;
-    long *in_sz = inputSize.data_ptr<long>();
+    int64_t *in_sz = inputSize.data_ptr<int64_t>();
     for (Int i = 0; i < Dimension; ++i)
       sz[i + 2] = in_sz[i];
     output_features.resize_(sz);
@@ -53,7 +53,7 @@ void cpu_SparseToDense_updateOutput(
     Int _nPlanes = input_features.size(1);
     auto iF = input_features.data_ptr<T>();
     auto oF = output_features.data_ptr<T>();
-    long spatialVolume = inputSize.prod().data_ptr<long>()[0];
+    int64_t spatialVolume = inputSize.prod().data_ptr<int64_t>()[0];
     for (auto &r : _rules) {
       Int nHot = r.size() / 2;
       SparseToDense_ForwardPass<T>(iF, oF, _nPlanes, spatialVolume, &r[0],
@@ -64,7 +64,7 @@ void cpu_SparseToDense_updateOutput(
 }
 template <typename T, Int Dimension>
 void cpu_SparseToDense_updateGradInput(
-    /*long*/ at::Tensor &inputSize, Metadata<Dimension> &m,
+    /*int64_t*/ at::Tensor &inputSize, Metadata<Dimension> &m,
     /*float*/ at::Tensor &input_features,
     /*float*/ at::Tensor &d_input_features,
     /*float*/ at::Tensor &d_output_features) {
@@ -73,7 +73,7 @@ void cpu_SparseToDense_updateGradInput(
   d_input_features.zero_();
   if (input_features.ndimension() == 2) {
     const auto &_rules = m.getSparseToDenseRuleBook(inputSize, true);
-    long spatialVolume = inputSize.prod().data_ptr<long>()[0];
+    int64_t spatialVolume = inputSize.prod().data_ptr<int64_t>()[0];
     Int _nPlanes = d_input_features.size(1);
     auto diF = d_input_features.data_ptr<T>();
     auto doF = d_output_features.data_ptr<T>();

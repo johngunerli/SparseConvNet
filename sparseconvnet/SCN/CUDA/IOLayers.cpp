@@ -16,11 +16,11 @@ void InputLayer_bp(T *d_input_features, T *d_output_features, Int nRows,
 
 template <typename T, Int Dimension>
 void cuda_InputLayer_updateOutput(Metadata<Dimension> &m,
-                                  /*long*/ at::Tensor &spatialSize,
-                                  /*long*/ at::Tensor &input_coords,
+                                  /* int64_t */ at::Tensor &spatialSize,
+                                  /* int64_t */ at::Tensor &input_coords,
                                   /*cuda float*/ at::Tensor &input_features,
                                   /*cuda float*/ at::Tensor &output_features,
-                                  long batchSize, long mode) {
+                                   int64_t  batchSize,  int64_t  mode) {
 
   m.inputLayer(spatialSize, input_coords, batchSize, mode);
   Int nPlanes = input_features.size(1);
@@ -118,11 +118,11 @@ void cuda_OutputLayer_updateGradInput(
 
 template <typename T, Int Dimension>
 void cuda_BLInputLayer_updateOutput(Metadata<Dimension> &m,
-                                    /*long*/ at::Tensor &spatialSize,
-                                    /*long*/ at::Tensor &input_coords,
+                                    /* int64_t */ at::Tensor &spatialSize,
+                                    /* int64_t */ at::Tensor &input_coords,
                                     /*cuda float*/ at::Tensor &input_features,
                                     /*cuda float*/ at::Tensor &output_features,
-                                    long mode) {
+                                     int64_t  mode) {
 
   m.blLayer(spatialSize, input_coords, mode);
   Int nPlanes = input_features.size(2);

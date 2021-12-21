@@ -10,7 +10,7 @@
 // Full input region for an output point
 template <Int dimension>
 RectangularRegion<dimension>
-InputRegionCalculator_Submanifold(const Point<dimension> &output, long *size) {
+InputRegionCalculator_Submanifold(const Point<dimension> &output,  int64_t  *size) {
   Point<dimension> lb, ub;
   for (Int i = 0; i < dimension; i++) {
     Int pad = size[i] / 2;
@@ -25,7 +25,7 @@ InputRegionCalculator_Submanifold(const Point<dimension> &output, long *size) {
 
 template <Int dimension>
 double SubmanifoldConvolution_SgToRules(SparseGrid<dimension> &grid,
-                                        RuleBook &rules, long *size) {
+                                        RuleBook &rules,  int64_t  *size) {
   double countActiveInputs = 0;
   for (auto const &outputIter : grid.mp) {
     auto inRegion =
@@ -46,7 +46,7 @@ double SubmanifoldConvolution_SgToRules(SparseGrid<dimension> &grid,
 
 template <Int dimension>
 Int SubmanifoldConvolution_SgsToRules(SparseGrids<dimension> &SGs,
-                                      RuleBook &rules, long *size) {
+                                      RuleBook &rules,  int64_t  *size) {
   Int sd = volume<dimension>(size);
   Int countActiveInputs = 0;
   rules.clear();
@@ -58,7 +58,7 @@ Int SubmanifoldConvolution_SgsToRules(SparseGrids<dimension> &SGs,
 }
 template <Int dimension>
 Int SubmanifoldConvolution_SgsToRules_OMP(SparseGrids<dimension> &SGs,
-                                          RuleBook &rules, long *size) {
+                                          RuleBook &rules,  int64_t  *size) {
   std::vector<RuleBook> rbs(SGs.size());
   std::vector<double> countActiveInputs(SGs.size());
   rules.clear();
