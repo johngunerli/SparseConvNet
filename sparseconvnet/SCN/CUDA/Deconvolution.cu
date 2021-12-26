@@ -156,7 +156,7 @@ dDeconvolution_KMxKN_forwardB(T *inFeatures, T *outFeatures, T *w, Int *rules,
 
 #define FOO(T, K, V)                                                           \
   {                                                                            \
-    if (input_nPlanes % K == 0 and output_nPlanes % K == 0) {                  \
+    if (input_nPlanes % K == 0 && output_nPlanes % K == 0) {                  \
       Int o = (nHot / K) * K;                                                  \
       if (o >= K)                                                              \
 	dDeconvolution_KMxKN_forwardA<                                         \
@@ -361,7 +361,7 @@ __global__ void dDeconvolution_KMxKN_backward_dW_B(
 
 #define FOO(T, K, V)                                                           \
   {                                                                            \
-    if (input_nPlanes % K == 0 and output_nPlanes % K == 0) {                  \
+    if (input_nPlanes % K == 0 && output_nPlanes % K == 0) {                  \
       Int o = (nHot / K) * K;                                                  \
       if (o >= K)                                                              \
 	dDeconvolution_KMxKN_backward_dW_A<                                    \
@@ -428,7 +428,7 @@ dDeconvolution_KMxKN_forward2(T *inFeatures, T *outFeatures, T *w, Int *rules,
 // Read w
 #pragma unroll
     for (int v = 0; v < V; v++)
-      if (ty[v] < KI and tx < KO)
+      if (ty[v] < KI && tx < KO)
 	W[ty[v]][tx] = w[ty[v] * output_nPlanes + tx];
 
     for (Int s = blockIdx.x * K; s < nHot; s += K * gridDim.x) {
@@ -446,7 +446,7 @@ dDeconvolution_KMxKN_forward2(T *inFeatures, T *outFeatures, T *w, Int *rules,
 // Read input, reset O[]
 #pragma unroll
       for (int v = 0; v < V; v++) {
-	if (tx < KI and s + ty[v] < nHot)
+	if (tx < KI && s + ty[v] < nHot)
 	  I[ty[v]][tx] = inFeatures[R[2 * ty[v] + 1] * input_stride + tx];
 	O[v] = 0;
       }
@@ -461,7 +461,7 @@ dDeconvolution_KMxKN_forward2(T *inFeatures, T *outFeatures, T *w, Int *rules,
 
 #pragma unroll
       for (int v = 0; v < V; v++)
-	if (tx < KO and s + ty[v] < nHot)
+	if (tx < KO && s + ty[v] < nHot)
 	  outFeatures[R[2 * ty[v]] * output_stride + tx] += O[v];
       __syncthreads();
     }
@@ -508,7 +508,7 @@ dDeconvolution_KMxKN_backward_dW2(T *inFeatures, T *dInFeatures,
 // Read w, reset dW
 #pragma unroll
     for (int v = 0; v < V; v++) {
-      if (ty[v] < KI and tx < KO)
+      if (ty[v] < KI && tx < KO)
 	W[ty[v]][tx] = w[ty[v] * output_nPlanes + tx];
       dW[v] = 0;
     }
@@ -528,11 +528,11 @@ dDeconvolution_KMxKN_backward_dW2(T *inFeatures, T *dInFeatures,
 // Read input and dOutput
 #pragma unroll
       for (int v = 0; v < V; v++) {
-	if (tx < KI and s + ty[v] < nHot)
+	if (tx < KI && s + ty[v] < nHot)
 	  I[ty[v]][tx] = inFeatures[R[2 * ty[v] + 1] * input_stride + tx];
 	else
 	  I[ty[v]][tx] = 0;
-	if (tx < KO and s + ty[v] < nHot)
+	if (tx < KO && s + ty[v] < nHot)
 	  dO[ty[v]][tx] = dOutFeatures[R[2 * ty[v]] * output_stride + tx];
 	else
 	  dO[ty[v]][tx] = 0;
@@ -551,13 +551,13 @@ dDeconvolution_KMxKN_backward_dW2(T *inFeatures, T *dInFeatures,
       __syncthreads();
 #pragma unroll
       for (int v = 0; v < V; v++)
-	if (tx < KI and s + ty[v] < nHot)
+	if (tx < KI && s + ty[v] < nHot)
 	  dInFeatures[R[2 * ty[v] + 1] * input_stride + tx] += dI[v];
       __syncthreads();
     }
 #pragma unroll
     for (int v = 0; v < V; v++)
-      if (ty[v] < KI and tx < KO)
+      if (ty[v] < KI && tx < KO)
 	atomicAdd(&dw[ty[v] * output_nPlanes + tx], dW[v]);
     w += K;
     dw += K;
@@ -572,7 +572,7 @@ double dDeconvolution_forward2(T *inFeatures, T *outFeatures, T *w,
 			       Int output_stride, Int nGroups) {
   Int c = input_nPlanes * output_nPlanes * nGroups;
   double flops = 0;
-  if (input_nPlanes % 8 != 0 or output_nPlanes % 8 != 0) {
+  if (input_nPlanes % 8 != 0 || output_nPlanes % 8 != 0) {
     const int K = 16;
     const int V = 4;
     RULEBOOKITERATOR(
@@ -597,7 +597,7 @@ void dDeconvolution_backward_dW2(T *inFeatures, T *dInFeatures, T *dOutFeatures,
 				 Int input_nPlanes, Int input_stride,
 				 Int output_nPlanes, Int output_stride, Int nGroups) {
   Int c = input_nPlanes * output_nPlanes * nGroups;
-  if (input_nPlanes % 8 != 0 or output_nPlanes % 8 != 0) {
+  if (input_nPlanes % 8 != 0 || output_nPlanes % 8 != 0) {
     const int K = 16;
     const int V = 4;
     RULEBOOKITERATOR(

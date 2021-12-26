@@ -154,7 +154,7 @@ __global__ void dAffineReluTrivialConvolution_forwardB(
 
 #define FOO(T, K, V)                                                           \
   {                                                                            \
-    if (input_nPlanes % K == 0 and output_nPlanes % K == 0) {                  \
+    if (input_nPlanes % K == 0 && output_nPlanes % K == 0) {                  \
       Int o = (nActive / K) * K;                                               \
       if (o > 0)                                                               \
         dAffineReluTrivialConvolution_forwardA<                                \
@@ -400,7 +400,7 @@ __global__ void dAffineReluTrivialConvolution_backward_dW_B(
 
 #define FOO(T, K, V)                                                           \
   {                                                                            \
-    if (input_nPlanes % K == 0 and output_nPlanes % K == 0) {                  \
+    if (input_nPlanes % K == 0 && output_nPlanes % K == 0) {                   \
       Int o = (nActive / K) * K;                                               \
       if (o > 0)                                                               \
         dAffineReluTrivialConvolution_backward_dW_A<                           \

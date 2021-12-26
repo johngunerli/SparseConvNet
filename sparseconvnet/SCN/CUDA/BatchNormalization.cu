@@ -81,7 +81,7 @@ __global__ void BatchNormalization_f_test(
        plane += gridDim.x * NTX) {
     if (threadIdx.y == 0) {
       W[threadIdx.x] =
-          pow(runningVar[plane] + eps, -0.5) * (weight ? weight[plane] : 1);
+          pow(runningVar[plane] + eps, static_cast<T>(-0.5)) * (weight ? weight[plane] : 1);
       B[threadIdx.x] =
           (bias ? bias[plane] : 0) - runningMean[plane] * W[threadIdx.x];
     }

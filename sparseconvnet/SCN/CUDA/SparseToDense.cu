@@ -13,7 +13,7 @@ __global__ void SparseToDense_fp(T *input_features, T *output_features,
   for (Int n = blockIdx.x * NTY; n < nHot; n += gridDim.x * NTY) {
     {
       Int i = threadIdx.x + NTX * threadIdx.y;
-      if (i < NTY * 2 and i < 2 * (nHot - n))
+      if (i < NTY * 2 && i < 2 * (nHot - n))
         r[i] = rules[2 * n + i];
     }
     __syncthreads();
@@ -45,7 +45,7 @@ __global__ void SparseToDense_bp(T *d_input_features, T *d_output_features,
   for (Int n = blockIdx.x * NTY; n < nHot; n += gridDim.x * NTY) {
     {
       Int i = threadIdx.x + NTX * threadIdx.y;
-      if (i < NTY * 2 and i < 2 * (nHot - n))
+      if (i < NTY * 2 && i < 2 * (nHot - n))
         r[i] = rules[2 * n + i];
     }
     __syncthreads();

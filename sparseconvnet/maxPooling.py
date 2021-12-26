@@ -79,8 +79,8 @@ class MaxPooling(Module):
     def forward(self, input):
         output = SparseConvNetTensor()
         output.metadata = input.metadata
-        output.spatial_size = (
-            input.spatial_size - self.pool_size) // self.pool_stride + 1
+        output.spatial_size = torch.div((
+            input.spatial_size - self.pool_size), self.pool_stride, rounding_mode='floor') + 1
         assert ((output.spatial_size - 1) * self.pool_stride +
                 self.pool_size == input.spatial_size).all()
         output.features = MaxPoolingFunction.apply(

@@ -114,18 +114,25 @@ python VGGplus.py
 
 ## Setup
 
-Tested with PyTorch 1.3, CUDA 10.0, and Python 3.3 with [Conda](https://www.anaconda.com/).
+Currently tested in Windows 10 with CPU-only PyTorch in Python 3.8
 
 ```
-conda install pytorch torchvision cudatoolkit=10.0 -c pytorch # See https://pytorch.org/get-started/locally/
-git clone git@github.com:facebookresearch/SparseConvNet.git
+# install pytorch beforehand: https://pytorch.org/
+git clone https://github.com/HoboVR-Labs/SparseConvNet.git
 cd SparseConvNet/
-bash develop.sh
+# build:
+pip install .
+# or develop:
+pip install -e .  
 ```
+Only use the .sh or .bat files if you wish to see more compiler output.
+
 To run the examples you may also need to install unrar:
-```
-apt-get install unrar
-```
+
+Windows:
+https://www.rarlab.com/download.htm
+
+Linux: `apt-get install unrar`
 
 ## License
 SparseConvNet is BSD licensed, as found in the LICENSE file. [Terms of use](https://opensource.facebook.com/legal/terms). [Privacy](https://opensource.facebook.com/legal/privacy)
